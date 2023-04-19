@@ -7,22 +7,15 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: postgres
-  password:
-  host: localhost
-  port: 5432
+  url: <%= ENV['DATABASE_URL'] %>
 
 development:
   <<: *default
-  database: myapp_dev
+  database: App_development
 
 test:
-  <<: *default
-  database: myapp_test
-
-production:
-  <<: *default
-  database: myapp_prod
-  username: myapp_prod_user
-  password: myapp_prod_password
+<<: *default
+database: App_test
